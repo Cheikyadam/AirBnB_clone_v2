@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 # preparing my servers
 
-sudo apt-get -y install nginx
-sudo ufw allow 'Nginx HTTP'
+if ! command -v nginx &> /dev/null ; then
+	sudo apt-get -y install nginx
+fi
 
 dir="/data/"
 if [ ! -d "$dir" ]; then
