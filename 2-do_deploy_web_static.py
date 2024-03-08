@@ -1,8 +1,8 @@
 #!/usr/bin/python3
 """Putting in servers"""
 from os.path import exists
-from fabric.api import run, put
-
+from fabric.api import run, put, env
+env.hosts = ['3.90.70.250', '52.87.230.58']
 
 def do_deploy(archive_path):
     """Deploiemnt"""
