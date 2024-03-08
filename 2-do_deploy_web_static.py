@@ -5,6 +5,7 @@ from fabric.api import run, put, env, local
 from datetime import datetime
 env.hosts = ['3.90.70.250', '52.87.230.58']
 env.user = "ubuntu"
+env.key_filename = "~/.ssh/school"
 
 def do_pack():
     """the function"""
