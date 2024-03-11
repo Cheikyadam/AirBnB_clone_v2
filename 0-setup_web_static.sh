@@ -3,6 +3,7 @@
 
 if ! command -v nginx &> /dev/null ; then
 	sudo apt-get -y install nginx
+	sudo ufw allow 'Nginx HTTP'
 fi
 
 dir="/data/"
@@ -43,6 +44,9 @@ sudo ln -s "$source_path" "$dest_path"
 sudo chown -R ubuntu:ubuntu /data/
 
 new="server_name _;\n\n\tlocation \/hbnb_static {\n\t\talias \/data\/web_static\/current\/;\n\t}"
-sudo sed -i "s/server_name _\;/$new/" /etc/nginx/sites-available/default
+already_set=$(sudo cat /etc/nginx/sites-available/default | grep "location /hbnb_static {")
+if [  "$already_set" == "" ]; then
+        sudo sed -i "s/server_name _\;/$new/" /etc/nginx/sites-available/default
+fi
 
 sudo nginx -s reload
