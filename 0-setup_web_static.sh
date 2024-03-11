@@ -1,34 +1,34 @@
 #!/usr/bin/env bash
-# preparing my servers
+#preparing my servers
 
 if ! command -v nginx &> /dev/null ; then
-	sudo apt-get -y install nginx
-	sudo ufw allow 'Nginx HTTP'
+        sudo apt-get -y install nginx
+        sudo ufw allow 'Nginx HTTP'
 fi
 
 dir="/data/"
 if [ ! -d "$dir" ]; then
-        sudo mkdir "$dir"
+        sudo mkdir -p $dir
 fi
 
 dir="/data/web_static/"
 if [ ! -d "$dir" ]; then
-        sudo mkdir "$dir"
+        sudo mkdir -p $dir
 fi
 
 dir="/data/web_static/releases/"
 if [ ! -d "$dir" ]; then
-        sudo mkdir "$dir"
+        sudo mkdir -p $dir
 fi
 
 dir="/data/web_static/shared/"
 if [ ! -d "$dir" ]; then
-        sudo mkdir "$dir"
+        sudo mkdir -p $dir
 fi
 
 dir="/data/web_static/releases/test/"
 if [ ! -d "$dir" ]; then
-        sudo mkdir "$dir"
+        sudo mkdir -p $dir
 fi
 
 content="<html>\n\t<head>\n\t</head>\n\t<body>\n\t\tHolberton School\n\t</body>\n</html>"
