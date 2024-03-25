@@ -7,6 +7,18 @@ from markupsafe import escape
 app = Flask(__name__)
 
 
+@app.route('/', strict_slashes=False)
+def index():
+    """hello hbnb"""
+    return 'Hello HBNB!'
+
+
+@app.route('/hbnb', strict_slashes=False)
+def index2():
+    """hello hbnb"""
+    return 'HBNB'
+
+
 @app.route('/c/<text>', strict_slashes=False)
 def fun(text):
     """c is fun"""
