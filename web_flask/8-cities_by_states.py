@@ -22,10 +22,12 @@ def teardown_app_context(exception=None):
 def index():
     """cities by state"""
     if getenv("HBNB_TYPE_STORAGE") == "db":
-        #states = storage.all(State)
-        
-        return render_template('8-cities_by_states.html', states=storage)
+        allstates = storage.all("State")
+    else:
+        allstates = storage.all(State)
+    states = [state for state in allstates.values()]
+    return render_template('8-cities_by_states.html', states=states)
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    app.run(host='0.0.0.0', port=5000)

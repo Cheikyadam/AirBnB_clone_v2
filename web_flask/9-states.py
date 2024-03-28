@@ -5,6 +5,7 @@ from markupsafe import escape
 from flask import render_template
 from models import storage
 from models.state import State
+from models.city import City
 from os import getenv
 
 
@@ -17,9 +18,9 @@ def teardown_app_context(exception=None):
     storage.close()
 
 
-@app.route('/states_list', strict_slashes=False)
+@app.route('/states', strict_slashes=False)
 def index():
-    """hello hbnb"""
+    """cities by state"""
     if getenv("HBNB_TYPE_STORAGE") == "db":
         allstates = storage.all("State")
     else:
@@ -28,5 +29,20 @@ def index():
     return render_template('7-states_list.html', states=states)
 
 
+@app.route('/states/<id>', strict_slashes=False)
+def cities(id):
+    """cities by state"""
+    if getenv("HBNB_TYPE_STORAGE") == "db":
+        allstates = storage.all("State")
+    else:
+        allstates = storage.all(State)
+    realId = "State." + id
+    try:
+        mystate = allstates[realId]
+    except KeyError:
+        mystate = None
+    return render_template('9-states.html', state=mystate)
+
+
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+    app.run(host='0.0.0.0', port=5000, debug=True)

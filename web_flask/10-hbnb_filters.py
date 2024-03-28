@@ -4,6 +4,7 @@ from flask import Flask
 from markupsafe import escape
 from flask import render_template
 from models import storage
+from models.amenity import Amenity
 from models.state import State
 from os import getenv
 
@@ -17,15 +18,20 @@ def teardown_app_context(exception=None):
     storage.close()
 
 
-@app.route('/states_list', strict_slashes=False)
+@app.route('/hbnb_filters', strict_slashes=False)
 def index():
-    """hello hbnb"""
+    """hbnb filters"""
     if getenv("HBNB_TYPE_STORAGE") == "db":
         allstates = storage.all("State")
+        allamenities = storage.all("Amenity")
     else:
         allstates = storage.all(State)
+        allamenities = storage.all(Amenity)
+    amenities = [amenity for amenity in allamenities.values()]
     states = [state for state in allstates.values()]
-    return render_template('7-states_list.html', states=states)
+    return render_template(
+            '10-hbnb_filters.html',
+            states=states, amenities=amenities)
 
 
 if __name__ == '__main__':
